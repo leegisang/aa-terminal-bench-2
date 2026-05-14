@@ -28,12 +28,9 @@ while IFS= read -r dir; do
   fi
 done < <(git -C "$TB2_REPO" ls-tree -d --name-only "$SOURCE_COMMIT") | sort > "$official"
 
-find "$ROOT" -mindepth 1 -maxdepth 1 -type d \
-  ! -name .git \
-  ! -name artifacts \
-  ! -name scripts \
+find "$ROOT/tasks" -mindepth 1 -maxdepth 1 -type d \
   -exec test -f '{}/task.toml' ';' \
-  -print | sed "s#^$ROOT/##" | sort > "$local_tasks"
+  -print | sed "s#^$ROOT/tasks/##" | sort > "$local_tasks"
 
 comm -23 "$official" "$aa" > "$excluded"
 
@@ -52,14 +49,14 @@ git -C "$TB2_REPO" archive --format=tar "$SOURCE_COMMIT" $(cat "$aa") | tar -xf 
 
 while IFS= read -r task; do
   if [ "$task" = "sanitize-git-repo" ]; then
-    diff_output="$(diff -qr "$TMPDIR/source/$task" "$ROOT/$task" || true)"
+    diff_output="$(diff -qr "$TMPDIR/source/$task" "$ROOT/tasks/$task" || true)"
     unexpected_diff="$(printf '%s\n' "$diff_output" | grep -v 'sanitize-git-repo/tests/test_outputs.py' || true)"
     if [ -n "$unexpected_diff" ]; then
       printf '%s\n' "$unexpected_diff"
       exit 1
     fi
   else
-    diff -qr "$TMPDIR/source/$task" "$ROOT/$task" >/dev/null
+    diff -qr "$TMPDIR/source/$task" "$ROOT/tasks/$task" >/dev/null
   fi
 done < "$aa"
 

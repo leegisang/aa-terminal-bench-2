@@ -1,1 +1,1 @@
-sanitize-git-repo/tests/test_outputs.py
+tasks/sanitize-git-repo/tests/test_outputs.py

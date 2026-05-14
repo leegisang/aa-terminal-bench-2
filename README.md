@@ -15,9 +15,9 @@ Artificial Analysis does not publish a Terminal-Bench 2 source commit on the met
 
 ## Task Set
 
-The included 84 tasks are copied as top-level task directories, matching the layout of the upstream Terminal-Bench 2 repository. Each task keeps its upstream `task.toml`, `instruction.md`, environment, solution, and tests.
+The included 84 tasks are copied into `tasks/<task-id>/`. Each task keeps its upstream `task.toml`, `instruction.md`, environment, solution, and tests.
 
-One test fixture file is intentionally redacted for public GitHub hosting: `sanitize-git-repo/tests/test_outputs.py` contained fake-looking credential strings that triggered GitHub push protection. The file path is recorded in `artifacts/redacted_files.txt`; the rest of the included task directories are byte-identical to upstream.
+One test fixture file is intentionally redacted for public GitHub hosting: `tasks/sanitize-git-repo/tests/test_outputs.py` contained fake-looking credential strings that triggered GitHub push protection. The file path is recorded in `artifacts/redacted_files.txt`; the rest of the included task directories are byte-identical to upstream.
 
 The five upstream tasks not present in the Artificial Analysis list are:
 
