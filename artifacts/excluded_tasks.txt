@@ -1,0 +1,5 @@
+feal-linear-cryptanalysis
+filter-js-from-html
+gpt2-codegolf
+make-doom-for-mips
+write-compressor

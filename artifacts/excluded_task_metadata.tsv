@@ -1,0 +1,6 @@
+task	difficulty	category	docker_image
+feal-linear-cryptanalysis	hard	mathematics	alexgshaw/feal-linear-cryptanalysis:20251031
+filter-js-from-html	medium	security	alexgshaw/filter-js-from-html:20251031
+gpt2-codegolf	hard	software-engineering	alexgshaw/gpt2-codegolf:20251031
+make-doom-for-mips	hard	software-engineering	alexgshaw/make-doom-for-mips:20251031
+write-compressor	hard	software-engineering	alexgshaw/write-compressor:20251031
