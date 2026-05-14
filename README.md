@@ -53,6 +53,25 @@ For test-suite evaluations, each evaluated attempt receives a binary `pass@1` re
 
 For Terminal-Bench v2 specifically, that implies an Artificial Analysis component score over `84 * 3 = 252` task attempts, scored by test-suite pass/fail and averaged as `pass@1`.
 
+## AA-Style Eval Runner
+
+This repository keeps upstream task manifests unchanged. AA-specific evaluation policy is stored in [`aa_eval.yaml`](aa_eval.yaml), and the generic wrapper lives in [`scripts/eval.py`](scripts/eval.py).
+
+Smoke-test the planned 84-task / 3-repeat matrix without running an agent:
+
+```bash
+./scripts/run_eval.sh --dry-run
+```
+
+Run a real evaluation by providing a command that executes one task attempt and exits with `0` on pass and non-zero on fail:
+
+```bash
+AA_RUNNER_COMMAND='my-tb2-runner --task-dir {task_dir} --task-id {task}' \
+  ./scripts/run_eval.sh
+```
+
+The wrapper records one JSONL row per task-repeat attempt and writes `summary.json` with the AA-style binary `pass@1` average. The public AA methodology specifies the 84-task subset, 3 repeats, and test-suite pass/fail scoring; it does not publish a TB2-specific source commit or additional episode/token limits.
+
 ## Artifacts
 
 - `artifacts/aa_terminal_bench_2_tasks.txt`: the 84 tasks listed by Artificial Analysis.

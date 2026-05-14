@@ -1,0 +1,28 @@
+# Artificial Analysis-style evaluation config for this repository.
+#
+# This file intentionally lives at the repository root instead of editing each
+# task.toml. The task manifests are upstream benchmark data; AA-specific policy
+# belongs in the evaluation wrapper.
+
+benchmark:
+  name: "AA Terminal-Bench 2"
+  source_methodology_url: "https://artificialanalysis.ai/methodology/coding-agents-benchmarking"
+  task_list_path: "artifacts/aa_terminal_bench_2_tasks.txt"
+  task_root: "."
+  task_manifest: "task.toml"
+  questions: 84
+  repeats: 3
+  scoring: "test_suite_pass_fail_pass_at_1"
+  pass_value: 1
+  fail_value: 0
+  aggregate: "mean_over_all_task_repeats"
+
+execution:
+  response_type: "terminal_based_task_execution"
+  environment: "Docker container with the same base environment for a given problem"
+  tools: "bash,str_replace_based_edit_tool,exit"
+  global_timeout_sec: null
+  override_task_level_timeouts: false
+  max_episodes: null
+  cumulative_input_token_budget: null
+  notes: "AA's public Coding Agent methodology specifies 84 tasks, 3 repeats, and binary test-suite pass@1. It does not publish a TB2-specific source commit or extra episode/token limits."
