@@ -53,6 +53,18 @@ For test-suite evaluations, each evaluated attempt receives a binary `pass@1` re
 
 For Terminal-Bench v2 specifically, that implies an Artificial Analysis component score over `84 * 3 = 252` task attempts, scored by test-suite pass/fail and averaged as `pass@1`.
 
+## Provenance Policy
+
+The checked-in task files are treated as benchmark data, not local configuration. In particular, this repository does not edit task-level `task.toml`, `Dockerfile`, environment files, tests, or solutions to encode Artificial Analysis policy.
+
+That separation is intentional:
+
+- Task manifests, Docker files, environment files, tests, and solutions define the benchmark task itself. Changing them would create a forked benchmark rather than a reconstruction of the AA task set.
+- AA-specific choices such as task subset, repeats, and binary `pass@1` aggregation are run policy. They belong in root-level config and runner scripts.
+- Keeping task files unchanged makes provenance checks and upstream diffs straightforward.
+
+The only documented exception is `tasks/sanitize-git-repo/tests/test_outputs.py`, which is redacted for public GitHub hosting because its fake credential strings trigger push protection. AA-specific run policy is stored in [`aa_eval.yaml`](aa_eval.yaml) and applied by [`scripts/eval.py`](scripts/eval.py).
+
 ## AA-Style Eval Runner
 
 This repository keeps upstream task manifests unchanged. AA-specific evaluation policy is stored in [`aa_eval.yaml`](aa_eval.yaml), and the generic wrapper lives in [`scripts/eval.py`](scripts/eval.py).
